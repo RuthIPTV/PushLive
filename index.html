@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPlayer</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+        }
+        #dplayer {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+<div id="dplayer"></div>
+
+<!-- DPlayer -->
+<script src="https://cdn.jsdelivr.net/npm/dplayer/dist/DPlayer.min.js"></script>
+
+<!-- hls.js（播放 m3u8 必须） -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script>
+    const m3u8Url = "video/live.m3u8";  // 修改你的地址
+
+    const dp = new DPlayer({
+        container: document.getElementById('dplayer'),
+        autoplay: false,
+        theme: "#00a1d6",
+        video: {
+            url: m3u8Url,
+            type: 'customHls',
+            customType: {
+                customHls: function (video, player) {
+                    if (Hls.isSupported()) {
+                        const hls = new Hls();
+                        hls.loadSource(video.src);
+                        hls.attachMedia(video);
+                    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                        video.src = video.src;
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,7 @@
+播放视频需要设置用户代理为: chengji.m3u8 
+播放链接 "http://192.168.0.123:8080/video/live.m3u8"
+docker 启动时可以加环境变量参数STREAM_KEY=test ,这决定了播放链接，live会变成test
+
+要添加用户验证，可以在请求头改动，编辑nginx.conf 取消注释 请求头那一项
+
+
