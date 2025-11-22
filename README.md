@@ -8,6 +8,7 @@ PushLive 是一个基于 Docker 的局域网 RTMP 推流服务，支持将本地
 可以直接下载压缩包并解压，或使用 Git 克隆：
 ```bash
 git clone https://github.com/RuthIPTV/PushLive.git
+---
 赋予脚本执行权限
 ```bash
 chmod +x test.sh
