@@ -9,14 +9,17 @@ PushLive 是一个基于 Docker 的局域网 RTMP 推流服务，支持将本地
 ```bash
 git clone https://github.com/RuthIPTV/PushLive.git
 ---
-赋予脚本执行权限
-```bash
-chmod +x test.sh
-构建并启动，脚本会自动停止旧容器、删除旧镜像、重新构建镜像并启动新的 PushLive 服务
-```bash
-sudo ./test.sh
-在浏览器打开： 即可查看网页界面效果
-```bash
+cd PushLive
+构建
+sudo docker build -t pushlive:latest .
+启动 -v 映射视频文件目录
+sudo docker run -d \
+  --name pushlive\
+  -p 8080:8080 \
+  -e STREAM_KEY=live \
+  -v /opt/docker/pushlive/video:/opt/data/video \
+  --restart unless-stopped \
+  pushlive:latest
+目前h264编码的视频占用小，才用其他方式会导致CPU高占用
+浏览器访问
 http://<你的IP>:8080
-## 已知问题
-由于是镜像里的ffmpeg是精简版本，无法调用硬件来编码，所有推流的视频最好是h264编码的视频，否则CPU占用极高
